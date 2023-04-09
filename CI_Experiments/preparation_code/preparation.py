@@ -63,7 +63,7 @@ class Preparation:
         edges = [(key, val) for key, vals in self.graph.items() for val in vals]
         df = pd.DataFrame(edges)
         adj_matrix = pd.crosstab(df[0], df[1])
-        self.save_csv(adj_matrix, path)
+        save_csv(adj_matrix, path)
 
     def create_activity_graph(self, path):
         def add_relationships_from_the_case(case: pd.DataFrame):
