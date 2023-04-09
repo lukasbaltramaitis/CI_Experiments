@@ -8,17 +8,18 @@ ACTIVITY = 'Activity'
 END = 'End'
 SEP = ';'
 
-class Preparation:
-    def __init__(self):
-        self.data = None
+
+def read_csv(path: str, sep=SEP) -> pd.DataFrame:
+    return pd.read_csv(path, sep)
 
 
-    def read_csv(self, path: str) -> pd.DataFrame:
-        self.data = pd.read_csv(path, sep=SEP)
-
-
-    def save_csv(self, data: pd.DataFrame, path: str):
+def save_csv(data: pd.DataFrame, path: str):
         data.to_csv(path, index=False)
+
+
+class Preparation:
+    def __init__(self, data: pd.DataFrame):
+        self.data = data
 
 
     def encode(self, columns_to_encode: List[str]):
@@ -29,7 +30,14 @@ class Preparation:
                 encoded = pd.DataFrame(ohe.fit_transform(self.data[[column]]).toarray())
                 self.data = self.data.join(encoded)
             self.data = self.data.drop(columns=columns_to_encode)
-        
+    
+
+    def _add_activities_to_columns(self, case: pd.DataFrame) -> pd.DataFrame:
+            if self.new_cols is not None:
+                for i in range(case.shape[0]):
+                    case.iloc[i][self.new_cols[i]] = case.iloc[i][ACTIVITY]
+            return case
+
 
     def encode_with_activity_seq(self, columns_to_encode: List[str]):
         def get_case_length(case: pd.DataFrame) -> int:
@@ -40,24 +48,19 @@ class Preparation:
         for i in range(nr_of_cols):
             column = f'N{i}'
             self.new_cols.append(column)
-            data[column] = END
+            self.data[column] = END
 
-        def add_activities_to_columns(case: pd.DataFrame) -> pd.DataFrame:
-            for col in self.new_cols:
-                if i < case.shape[0]:
-                    case.iloc[i][col] = case.iloc[i][ACTIVITY]
-            return case
+        
 
-        data.groupby(CASE_ID).apply(add_activities_to_columns)
-        data = data.drop(columns=[ACTIVITY])
+        self.data = self.data.groupby(CASE_ID).apply(self._add_activities_to_columns)
+        self.data = self.data.drop(columns=[ACTIVITY])
         columns_to_encode.remove(ACTIVITY)
         columns_to_encode += self.new_cols
         self.encode(columns_to_encode)
 
 
     def _save_graph(self, path):
-        g = {k: [v.strip() for v in vs] for k, vs in self.graph.items()}
-        edges = [(a, b) for a, bs in self.graph.items() for b in bs]
+        edges = [(key, val) for key, vals in self.graph.items() for val in vals]
         df = pd.DataFrame(edges)
         adj_matrix = pd.crosstab(df[0], df[1])
         self.save_csv(adj_matrix, path)
