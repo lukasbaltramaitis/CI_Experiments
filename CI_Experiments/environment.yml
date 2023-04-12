@@ -1,0 +1,19 @@
+name: ci_experiments
+channels: 
+  - defaults
+  - conda-forge
+  - intel
+  - anaconda
+  - anaconda-fusion
+dependencies:
+  - python=3.8
+  - numpy
+  - pandas
+  - matplotlib
+  - jupyterlab
+  - pip = 23.*
+  - scikit-learn
+  - pip:
+    - ylearn
+    - networkx
+    - cdt
