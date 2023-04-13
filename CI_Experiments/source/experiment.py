@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r"C:\Users\Lukas\CI_Experiments\CI_Experiments\source")
 import pandas as pd
 import os
 import constants as C
@@ -10,35 +12,36 @@ from params import DiscoverParams, EstimateParams
 class Experiment:
     def _make_results_dir(self, path_to_results_dir: str, dataset_name: str):
         # exepriment result dir
-        now_string = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        path_to_result_dir = f'{path_to_results_dir}/{dataset_name}/{now_string}'
+        now_string = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        path_to_result_dir = f'{path_to_results_dir}\{dataset_name}\{now_string}'
         os.mkdir(path_to_result_dir)
 
         # approaches results dirs
         self.path_to_result_dir = path_to_result_dir
-        os.mkdir(f'{path_to_result_dir}/{C.ACTIVITIES}')
-        os.mkdir(f'{path_to_result_dir}/{C.ACTIVITIES_POS_NEG}')
-        os.mkdir(f'{path_to_result_dir}/{C.ACTIVITIES_NUMERIC}')
-        os.mkdir(f'{path_to_result_dir}/{C.ACTIVITIES_NUMERIC_POS_NEG}')
+        os.mkdir(f'{path_to_result_dir}\{C.ACTIVITIES}')
+        os.mkdir(f'{path_to_result_dir}\{C.ACTIVITIES_POS_NEG}')
+        os.mkdir(f'{path_to_result_dir}\{C.ACTIVITIES_NUMERIC}')
+        os.mkdir(f'{path_to_result_dir}\{C.ACTIVITIES_NUMERIC_POS_NEG}')
 
     
     def _get_true_graph(self, path_to_dataset: str):
-        path_to_true_graph = f'{path_to_dataset}/{C.TRUE_GRAPH}.{C.CSV}'
+        path_to_true_graph = f'{path_to_dataset}\{C.TRUE_GRAPH}.{C.CSV}'
         try:
             return pd.read_csv(path_to_true_graph)
         except OSError as e:
             print(f"True graph file in path {path_to_true_graph} was not found: {e}")
             return None
     
+
     def _init_approach_dataset(self, path_to_dataset: str, approach: str) -> ApproachDataset:
-        path_to_approach_dataset = f'{path_to_dataset}/{approach}'
-        train_data = pd.read_csv(f'{path_to_approach_dataset}/{C.TRAIN}.{C.CSV}')
-        test_data = pd.read_csv(f'{path_to_approach_dataset}/{C.TEST}.{C.CSV}')
+        path_to_approach_dataset = f'{path_to_dataset}\{approach}'
+        train_data = pd.read_csv(f'{path_to_approach_dataset}\{C.TRAIN}.{C.CSV}')
+        test_data = pd.read_csv(f'{path_to_approach_dataset}\{C.TEST}.{C.CSV}')
         return ApproachDataset(approach, train_data, test_data)
 
     
     def _init_dataset(self, path_to_datasets_dir: str, dataset_name: str):
-        path_to_dataset = f'{path_to_datasets_dir}/{dataset_name}'
+        path_to_dataset = f'{path_to_datasets_dir}\{dataset_name}'
         true_graph = self._get_true_graph(path_to_dataset)
 
         activities_dataset = self._init_approach_dataset(path_to_dataset, C.ACTIVITIES)
@@ -68,8 +71,10 @@ class Experiment:
 
 
     def discover(self, discover_params: DiscoverParams):
+        discover_params.path_to_result_dir = self.path_to_result_dir
         self.dataset.discover(discover_params)
         
     
     def estimate(self, estimate_params: EstimateParams):
+        estimate_params.path_to_result_dir = self.path_to_result_dir
         self.dataset.estimate(estimate_params)

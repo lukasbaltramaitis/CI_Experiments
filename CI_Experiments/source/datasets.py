@@ -74,7 +74,7 @@ class ApproachDataset:
 
 
     def _save_txt(self, path_to_approach_dir: str):
-        metrics_path = f'{path_to_approach_dir}/{C.METRICS}.{C.TXT}'
+        metrics_path = f'{path_to_approach_dir}\{C.METRICS}.{C.TXT}'
 
         with open(metrics_path, 'w') as f:
             f.write('METRICS:/n')
@@ -92,7 +92,7 @@ class ApproachDataset:
         # policy tree
         fig = plt.figure(1, figsize=(12, 12))
         self.policy_interpreter.plot()
-        fig.savefig(f'{path_to_approach_dir}/{C.TREE_MODEL}.{C.PNG}')
+        fig.savefig(f'{path_to_approach_dir}\{C.TREE_MODEL}.{C.PNG}')
 
         # other estimation results
         self.results.estimate_results.save(path_to_approach_dir)

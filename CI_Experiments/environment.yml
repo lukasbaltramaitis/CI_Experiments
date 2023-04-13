@@ -13,7 +13,8 @@ dependencies:
   - jupyterlab
   - pip = 23.*
   - scikit-learn
+  - torchvision
   - pip:
     - ylearn
-    - networkx
+    - networkx==2.8.8
     - cdt

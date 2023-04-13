@@ -26,30 +26,30 @@ class UpliftResults:
         # qini
         fig = plt.figure(2)
         self.uplift_model.plot_qini()
-        fig.savefig(f'{path_to_approach_dir}/{C.QINI}.{C.PNG}')
-        self.qini.to_csv(f'{path_to_approach_dir}/{C.QINI}.{C.CSV}')
+        fig.savefig(f'{path_to_approach_dir}\{C.QINI}.{C.PNG}')
+        self.qini.to_csv(f'{path_to_approach_dir}\{C.QINI}.{C.CSV}')
         if self.qini_top_point is not None:
-            self.qini_top_point.to_csv(f'{path_to_approach_dir}/{C.QINI_TOP_POINT}.{C.CSV}')
+            self.qini_top_point.to_csv(f'{path_to_approach_dir}\{C.QINI_TOP_POINT}.{C.CSV}')
         if self.qini_score is not None:
-            self.qini_score.to_csv(f'{path_to_approach_dir}/{C.QINI_SCORE}.{C.CSV}')
+            self.qini_score.to_csv(f'{path_to_approach_dir}\{C.QINI_SCORE}.{C.CSV}')
 
         # gain
         fig = plt.figure(3)
         self.uplift_model.plot_gain()
-        fig.savefig(f'{path_to_approach_dir}/{C.GAIN}.{C.PNG}')
-        self.gain.to_csv(f'{path_to_approach_dir}/{C.GAIN}.{C.CSV}')
+        fig.savefig(f'{path_to_approach_dir}\{C.GAIN}.{C.PNG}')
+        self.gain.to_csv(f'{path_to_approach_dir}\{C.GAIN}.{C.CSV}')
         if self.gain_top_point is not None:
-            self.gain_top_point.to_csv(f'{path_to_approach_dir}/{C.GAIN_TOP_POINT}.{C.CSV}')
+            self.gain_top_point.to_csv(f'{path_to_approach_dir}\{C.GAIN_TOP_POINT}.{C.CSV}')
 
         # cumlift
         fig = plt.figure(4)
         self.uplift_model.plot_cumlift()
-        fig.savefig(f'{path_to_approach_dir}/{C.CUMLIFT}.{C.PNG}')
-        self.cumlift.to_csv(f'{path_to_approach_dir}/{C.CUMLIFT}.{C.CSV}')
+        fig.savefig(f'{path_to_approach_dir}\{C.CUMLIFT}.{C.PNG}')
+        self.cumlift.to_csv(f'{path_to_approach_dir}\{C.CUMLIFT}.{C.CSV}')
 
         # auuc score
         if self.auuc_score is not None:
-            self.auuc_score.to_csv(f'{path_to_approach_dir}/{C.AUUC_SCORE}.{C.CSV}')
+            self.auuc_score.to_csv(f'{path_to_approach_dir}\{C.AUUC_SCORE}.{C.CSV}')
 
 
 class DiscoverResults:
@@ -68,7 +68,7 @@ class DiscoverResults:
 
     def save(self, headers: List[str], path_to_approach_dir: str, print: bool=False):
         # graph
-        path_to_graph = f'{path_to_approach_dir}/{C.CAUSAL_GRAPH}.{C.CSV}'
+        path_to_graph = f'{path_to_approach_dir}\{C.CAUSAL_GRAPH}.{C.CSV}'
         self.graph.to_csv(path_to_graph)
 
         # graph image
@@ -83,7 +83,7 @@ class DiscoverResults:
             colWidths=C.GRAPH_TABLE_COL_WIDTHS,
             colLabels=C.GRAPH_TABLE_HEADERS
             )
-        path_to_graph_image = f'{path_to_approach_dir}/{C.CAUSAL_GRAPH}.{C.PNG}'
+        path_to_graph_image = f'{path_to_approach_dir}\{C.CAUSAL_GRAPH}.{C.PNG}'
         fig.savefig(path_to_graph_image)
         if print:
             plt.show()
@@ -104,8 +104,8 @@ class EstimateResults:
 
 
     def save(self, path_to_approach_dir: str):
-        self.ate.to_csv(f'{path_to_approach_dir}/{C.ATE}.{C.CSV}')
-        self.ite.to_csv(f'{path_to_approach_dir}/{C.ITE}.{C.CSV}')
+        self.ate.to_csv(f'{path_to_approach_dir}\{C.ATE}.{C.CSV}')
+        self.ite.to_csv(f'{path_to_approach_dir}\{C.ITE}.{C.CSV}')
         self.uplift_results.save(path_to_approach_dir)
 
 
