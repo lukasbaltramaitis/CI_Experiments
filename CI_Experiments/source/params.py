@@ -1,16 +1,17 @@
 from typing import List
 
+
 # PARAMS:
 
 class DiscoverParams:
     def __init__(
-            self, 
-            print_results: bool = False, 
-            hidden_layer_dim: List[int] = [3], 
-            treshold: float = 0.01, 
+            self,
+            print_results: bool = False,
+            hidden_layer_dim: List[int] = [3],
+            treshold: float = 0.01,
             compare_with_true_graph: bool = False,
-            path_to_result_dir: str = None
-        ):
+            path_to_result_dir: str = None,
+    ):
         self.print_results = print_results,
         self.hidden_layer_dim = hidden_layer_dim
         self.treshold = treshold
@@ -30,13 +31,13 @@ class ApproachEstimateParams:
 
 class EstimateParams:
     def __init__(
-            self, 
+            self,
             activities_params: ApproachEstimateParams,
             activities_pos_neg_params: ApproachEstimateParams,
             activities_numeric_params: ApproachEstimateParams,
             activities_numeric_pos_neg_params: ApproachEstimateParams,
             path_to_result_dir: str = None
-        ):
+    ):
         self.activities_params = activities_params
         self.activities_pos_neg_params = activities_pos_neg_params
         self.activities_numeric_params = activities_numeric_params
