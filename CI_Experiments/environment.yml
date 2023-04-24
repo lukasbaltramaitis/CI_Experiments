@@ -14,7 +14,15 @@ dependencies:
   - pip = 23.*
   - scikit-learn
   - torchvision
+  - lightgbm
   - pip:
     - ylearn
     - networkx==2.8.8
     - cdt
+    - category_encoders
+    - gcastle==1.0.3
+    - pgmpy
+    - xgboost
+    - psmpy
+    - scikit-uplift
+    - func-timeout
