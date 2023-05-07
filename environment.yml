@@ -18,11 +18,11 @@ dependencies:
   - pip:
     - ylearn
     - networkx==2.8.8
-    - cdt
+    - cdt # optional
     - category_encoders
     - gcastle==1.0.3
     - pgmpy
     - xgboost
     - psmpy
-    - scikit-uplift
+    - scikit-uplift # optional
     - func-timeout
