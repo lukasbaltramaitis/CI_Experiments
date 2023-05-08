@@ -35,8 +35,16 @@ conda env export --from-history > environment.yaml
 
 Apply new changes
 ```
-conda env update --file environment.yaml --name ci_experiments
+conda env update --file environment.yml --name ci_experiments
 ```
+
+### Execute encoding unit tests
+1. In terminal go to the project parent folder.
+2. Execute the command:
+```
+python -m unittest CI_Experiments.tests.encoding_test
+```
+3. Tests can be found in CI_Experiments/tests/encoding_test.py file.
 
 ## Reproduce the experiments
 
@@ -81,6 +89,7 @@ Results of the experiment can be found in the CI_Experiments/experiments/results
     * preparation.py - code for Data Preparation step.
 * preparation - Jupyter notebooks for the initial data preparation (Case ID, Activity, Timestamp) for the event log 
   configuration for the experiments.
+* tests/encoding_test.py - contains unit tests for encoding method.
 * utilities/qinis_graphs_painter.ipynb - has qinis curve draw tool which could be more configurable to have better graphs.
 * config.py - file that has the path to root folder: CI_Experiments. 
 
