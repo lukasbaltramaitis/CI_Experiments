@@ -15,14 +15,18 @@ Activity and Timestamp variables.
 conda create -n ci_experiments python=3.8
 conda activate ci_experiments
 ```
-3. Download and install git lfs from: https://git-lfs.github.com/ 
+3. Install dependecies
+```
+conda env update --file environment.yml --name ci_experiments
+```
+4. Download and install git lfs from: https://git-lfs.github.com/ 
    Git lfs is used for huge data files -- they should be in `data` folder.
 
-4. In the terminal execute command (once per user):
+5. In the terminal execute command (once per user):
 ```
 git lfs install
 ```
-5. In the terminal execute command to download the git LFS objects:
+6. In the terminal execute command to download the git LFS objects:
 ```
 git lfs fetch
 ```
@@ -33,7 +37,7 @@ Save new dependencies
 conda env export --from-history > environment.yaml
 ```
 
-Apply new changes
+Apply changes:
 ```
 conda env update --file environment.yml --name ci_experiments
 ```
