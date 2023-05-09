@@ -94,7 +94,9 @@ Results of the experiment can be found in the CI_Experiments/experiments/results
 * preparation - Jupyter notebooks for the initial data preparation (Case ID, Activity, Timestamp) for the event log 
   configuration for the experiments.
 * tests/encoding_test.py - contains unit tests for encoding method.
-* utilities/qinis_graphs_painter.ipynb - has qinis curve draw tool which could be more configurable to have better graphs.
+* utilities:
+    * qinis_graphs_painter.ipynb - has qinis curve draw tool which could be more configurable to have better graphs.
+    * graph_drawer.ipynb - is a tool, used to draw causal graphs.
 * config.py - file that has the path to root folder: CI_Experiments. 
 
     
